@@ -395,10 +395,13 @@ https://stackoverflow.com/questions/20932779/reading-parameters-on-sinatra-post
 
 https://github.com/aars/rack-bodyparser
 
+And add the following our Gemfile (remember to `bundle install`)
+
+```rb
+gem  'rack-bodyparser"
 ```
-gem install rack-bodyparser
-```
-```
+
+```rb
 require 'rack/contrib'
 use Rack::JSONBodyParser
 ```
@@ -423,33 +426,3 @@ configure :development do
   end
 end
 ```
-
-And add the following our Gemfile (remember to `bundle install`)
-```
-gem 'rack-contrib'
-```
-
-
-## Generate Fake User Data
-
-```
-cd $THEIA_WORKSPACE_ROOT
-mkdir bin
-touch bin/seed
-```
-
-Within our new seed file add the following:
-
-```
-#!/usr/bin/env ruby
-require 'faker'
-
-puts 
-```
-
-Then run:
-```
-chmod u+x bin/seed
-```
-
-> cd $THEIA_WORKSPACE_ROOT is the fast way for us to get back to workspace project directory. $THEIA_WORKSPACE_ROOT is an Enviroment Variable that points here. See for yourself by running `echo $THEIA_WORKSPACE_ROOT`
