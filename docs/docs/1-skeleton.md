@@ -132,3 +132,27 @@ Lets first describe our endpoints before we implement them:
 - GET /api/activities/search?term=term - being able to search across all activity
 
 > There will be more api endpoints later we implement Authenication
+
+## Generate Fake User Data
+
+```
+cd $THEIA_WORKSPACE_ROOT
+mkdir bin
+touch bin/seed
+```
+
+Within our new seed file add the following:
+
+```
+#!/usr/bin/env ruby
+require 'faker'
+
+puts 
+```
+
+Then run:
+```
+chmod u+x bin/seed
+```
+
+> cd $THEIA_WORKSPACE_ROOT is the fast way for us to get back to workspace project directory. $THEIA_WORKSPACE_ROOT is an Enviroment Variable that points here. See for yourself by running `echo $THEIA_WORKSPACE_ROOT`
