@@ -30,21 +30,22 @@ We will end up with a directory structure that looks like this:
   - config.ru
 ```
 
-
 ## Create Gemfile and install deps
 
-Place the following in your Gemfile:
+Place the following in your `app/Gemfile`:
 
 ```rb
 source 'https://rubygems.org'
 
 gem 'sinatra'
 gem 'webrick'
+gem 'rack
 ```
 
 - source - this specifies the remote repo where we'll pull our deps
 - sintra - is the webframework we plan to use
 - webrick - is the web-server that will server our application
+- rack - adaptable interface for developing web applications in Ruby
 
 I've choosen webrick because since we are running our web-app inside of a container, you only run a single process for the app per container. Puma which is very popular is suited for running multiple rails instance on a single Virtual Machine. We can use Puma but its just simpler to use webrick
 
@@ -56,3 +57,35 @@ bundle install
 ```
 
 This will generate a Gemfile which will specific what exact versions of gems you are using.
+
+## Define our Sintra Hello World Code
+
+In your `app/app.rb` file:
+
+```
+require 'sinatra'
+
+get '/' do
+  'Hello World!'
+end
+```
+
+Sintra has as DSL that makes it easy to write apps in single file.
+Here we've defined a root path eg: localhost:4567/ which the home page of our application
+
+In your `config.ru` add the following:
+
+```
+require './app.rb'
+run Sinatra::Application
+```
+
+The config.ru is the configuration file for rack
+
+What does rack do?
+
+> wrapping HTTP requests and responses in the simplest way possible, it unifies and distills the bridge between web servers, web frameworks, and web application into a single method call
+
+There are many different kinds of ruby web-framework and Rack is a layer that sits infront of web-apps to normalize their behaviour. Rack is able to add middleware so it can process, tranform and do things to incoming HTTP requests before it reaches our sintra code.
+
+We are just using it because it standard, and we probably won't be doing any complex configuration
