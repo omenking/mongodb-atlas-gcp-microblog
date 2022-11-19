@@ -75,6 +75,15 @@ const root = ReactDOM.createRoot(el_main);
 
 - [] Check the app to make sure it still works
 
+```
+cd $THEIA_WORKSPACE_ROOT/frontend
+mkdir src/pages
+touch  src/pages/HomeFeedPage.js
+touch  src/pages/HomeFeedPage.css
+touch  src/pages/UserFeedPage.js
+touch  src/pages/UserFeedPage.css
+```
+
 
 ## Create needed components
 

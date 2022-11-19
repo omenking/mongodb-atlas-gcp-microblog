@@ -1,4 +1,6 @@
 import './App.css';
+import HomeFeedPage from './pages/HomeFeedPage';
+import UserFeedPage from './pages/UserFeedPage';
 import {
   BrowserRouter as Router,
   Switch,
