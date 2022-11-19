@@ -19,14 +19,28 @@ namespace '/api' do
 
   get '/activities/@:handle' do
     user_handle  = params['handle']
-    data = UserActivities.run user_handle: user_handle
-    return data.to_json
+
+    model = UserActivities.run user_handle: user_handle
+    if model.errors.any?
+      status 422
+      return model.errors.to_json
+    else
+      status 200
+      return model.data.to_json
+    end # if model.errors.any?
   end
 
   get '/activities/search' do
     search_term = params['term']
-    data = SearchActivities.run search_term: search_term
-    return data.to_json
+
+    model = SearchActivities.run search_term: search_term
+    if model.errors.any?
+      status 422
+      return model.errors.to_json
+    else
+      status 200
+      return model.data.to_json
+    end # if model.errors.any?
   end
 
   post '/activities' do
