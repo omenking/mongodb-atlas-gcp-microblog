@@ -5,7 +5,12 @@
 Lets build a simple microblogging project that allows users
 to sign up and post simple 280 characters.
 
-## Instructions
+Things we might not implement:
+- profile pages
+- followerships
+- likings posts
+
+## Instructional Tutorial
 
 This project's step by step instructions are tutorialized
 in steps here in the docs directory:
@@ -15,6 +20,7 @@ in steps here in the docs directory:
 - [Implementing CRUD actions with local MongoDB]
 - [Provisoning a production MongoDB Atlas]
 - [Implementing MongoDB Altas Search]
+- [Implementing MongoDB Change Streams]
 - [Implementing Authenication]
 
 ## Requirements and Technology Choices
