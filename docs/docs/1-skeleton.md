@@ -94,7 +94,7 @@ We are just using it because it standard, and we probably won't be doing any com
 
 Rack is part of sintra so we probably didn't need to include in our Gemfile, but just adding it explicty.
 
-## Rackup our server
+## Rackup our server (Run our web-application)
 
 To start the server run `rackup`
 
@@ -117,7 +117,6 @@ Now lets run the server again but by typing following:
 bundle exec rackup --host 0.0.0.0 -p 4567
 ```
 
-- bundle exec - is an explic way to run our rackup command in the context of our gemfile
+- bundle exec - is an explict way to run our rackup command in the context of our gemfile
 - --host - We want to bind on port 0.0.0.0, this will be important when we are running the app in a container so we can route traffic out of the container
 - --port - We are going to run on port 4567 because this is the standard convention for sintra apps but we could make this port whatever like to be honest.
-
