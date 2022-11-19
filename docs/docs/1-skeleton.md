@@ -39,13 +39,15 @@ source 'https://rubygems.org'
 
 gem 'sinatra'
 gem 'webrick'
-gem 'rack
+gem 'rack'
+gem 'rackup'
 ```
 
 - source - this specifies the remote repo where we'll pull our deps
 - sintra - is the webframework we plan to use
 - webrick - is the web-server that will server our application
 - rack - adaptable interface for developing web applications in Ruby
+- rackup - this is how we run rack servers easily
 
 I've choosen webrick because since we are running our web-app inside of a container, you only run a single process for the app per container. Puma which is very popular is suited for running multiple rails instance on a single Virtual Machine. We can use Puma but its just simpler to use webrick
 
@@ -88,4 +90,8 @@ What does rack do?
 
 There are many different kinds of ruby web-framework and Rack is a layer that sits infront of web-apps to normalize their behaviour. Rack is able to add middleware so it can process, tranform and do things to incoming HTTP requests before it reaches our sintra code.
 
-We are just using it because it standard, and we probably won't be doing any complex configuration
+We are just using it because it standard, and we probably won't be doing any complex configuration of rack
+
+Rack is part of sintra so we probably didn't need to include in our Gemfile, but just adding it explicty.
+
+## Rackup our server

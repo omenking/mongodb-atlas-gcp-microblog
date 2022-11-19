@@ -6,6 +6,9 @@ GEM
     rack (2.2.4)
     rack-protection (3.0.3)
       rack
+    rackup (0.1.0)
+      rack
+      webrick
     ruby2_keywords (0.0.5)
     sinatra (3.0.3)
       mustermann (~> 3.0)
@@ -19,6 +22,8 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  rack
+  rackup
   sinatra
   webrick
 
