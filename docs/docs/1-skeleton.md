@@ -106,7 +106,7 @@ This will start the server on a port `9292` by default
 
 Using this Gitpod CLI command lets view it the browser:
 ```
-gp preview $(gp url 3000) --external
+gp preview $(gp url 4567) --external
 ```
 
 You should see the web-app running.
@@ -121,7 +121,7 @@ bundle exec rackup --host 0.0.0.0 -p 4567
 - --host - We want to bind on port 0.0.0.0, this will be important when we are running the app in a container so we can route traffic out of the container
 - --port - We are going to run on port 4567 because this is the standard convention for sintra apps but we could make this port whatever like to be honest.
 
-## Implement our API / Routes
+## Defining Our API
 
 Our sintra app will be responsbile for serving up our API as JSON.
 Lets first describe our endpoints before we implement them:
@@ -132,6 +132,201 @@ Lets first describe our endpoints before we implement them:
 - GET /api/activities/search?term=term - being able to search across all activity
 
 > There will be more api endpoints later we implement Authenication
+
+## Setup Namespace and first JSON API endpoint
+
+Add the following to the `app/Gemfile`:
+```
+gem 'sinatra-contrib'
+```
+
+Run `bundle install`
+
+We want this so we have `namespace` DSL for our sintra app.
+
+Update our `app/app.rb` to look like the following:
+
+```rb
+require 'sinatra'
+require "sinatra/namespace"
+require 'json'
+
+namespace '/api' do
+  get '/activities' do
+    content_type 'application/json'
+    { hello: "World" }.to_json
+  end
+end
+```
+
+Start up your application and navigate to this new route:
+
+```
+gp preview $(gp url 4567)/api/activities --external
+```
+
+## Reloading in Development
+
+So we don't have to constantly restart our application add the following line near the top of your sintra app
+
+```rb
+require "sinatra/reloader" if development?
+```
+
+The full file:
+```rb
+require 'sinatra'
+require "sinatra/namespace"
+require 'json'
+require "sinatra/reloader" if development?
+
+namespace '/api' do
+  get '/activities' do
+    content_type 'application/json'
+    { hello: "World" }.to_json
+  end
+end
+```
+
+Now we can just updated code and check it.
+
+- sinatra/reloader is part of the sinatra-contrib gem which we included
+- by default when do not specific an enviroment Sintra will run in Development mode later we'll have to explicty set the enviroment variable
+
+## Implement mock endpoints
+
+We'll create a services directory and file for each action:
+```
+cd $THEIA_WORKSPACE_ROOT/app
+mkdir services
+cd services
+touch home_activities.rb user_activities.rb search_activities.rb create_activity.rb
+cd ..
+```
+
+Change your `app/app.rb` to appear as the following:
+
+```rb
+require 'sinatra'
+require "sinatra/namespace"
+require 'json'
+require "sinatra/reloader" if development?
+require_relative "services/home_activities"
+require_relative "services/user_activities"
+require_relative "services/search_activities"
+require_relative "services/create_activity"
+
+namespace '/api' do
+  before do
+    content_type 'application/json'
+  end
+
+  get '/activities/home' do
+    data = HomeActivities.run
+    return data.to_json
+  end
+
+  get '/activities/@:handle' do
+    user_handle  = params['handle']
+    data = UserActivities.run user_handle: user_handle
+    return data.to_json
+  end
+
+  get '/activities/search' do
+    search_term = params['term']
+    data = SearchActivities.run search_term: search_term
+    return data.to_json
+  end
+
+  post '/activities' do
+    message      = params['message']
+    user_handle  = params['handle']
+    model = CreateActivity.run message: message, user_handle: user_handle
+    if model.errors.any?
+      status 422
+      return model.errors.to_json
+    else
+      status 200
+      return model.data.to_json
+    end # if model.errors.any?
+  end
+end # namespace
+```
+
+update `services/home_activities.rb` with:
+
+```rb
+class HomeActivities
+  def self.run
+    results = [{
+      handle:  'Andrew Brown',
+      message: 'Cloud is fun!',
+      created_at: Time.now
+    }]
+    return results
+  end
+end
+```
+
+update `services/user_activities.rb` with
+
+```rb
+class UserActivities
+  def self.run user_handle:
+    results = [{
+      handle:  'Andrew Brown',
+      message: 'Cloud is fun!',
+      created_at: Time.now
+    }]
+    return results
+  end
+end
+```
+
+update `services/search_activities.rb` with:
+
+```rb
+class SearchActivities
+  def self.run search_term:
+    results = [{
+      handle:  'Andrew Brown',
+      message: 'Cloud is fun!',
+      created_at: Time.now
+    }]
+    return results
+  end
+end
+```
+
+Check the get endpoints to see if they return the expected json data.
+
+
+> Remember to replace the `User` with the respected file ec. HomeActivities
+
+update the `services/create_activity.rb` with the following:
+
+```rb
+require "ostruct"
+
+class CreateActivity
+  def self.run message:, user_handle:
+    data = {
+      handle:  user_handle,
+      message: message,
+      created_at: Time.now
+    }   
+
+    model = OpenStruct.new
+    model.errors = []
+    model.data = data
+
+    return model
+  end
+end
+```
+
+
+
 
 ## Generate Fake User Data
 

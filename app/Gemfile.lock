@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    multi_json (1.15.0)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
     rack (2.2.4)
@@ -15,6 +16,12 @@ GEM
       rack (~> 2.2, >= 2.2.4)
       rack-protection (= 3.0.3)
       tilt (~> 2.0)
+    sinatra-contrib (3.0.3)
+      multi_json
+      mustermann (~> 3.0)
+      rack-protection (= 3.0.3)
+      sinatra (= 3.0.3)
+      tilt (~> 2.0)
     tilt (2.0.11)
     webrick (1.7.0)
 
@@ -25,6 +32,7 @@ DEPENDENCIES
   rack
   rackup
   sinatra
+  sinatra-contrib
   webrick
 
 BUNDLED WITH
