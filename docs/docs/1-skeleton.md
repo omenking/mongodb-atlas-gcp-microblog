@@ -228,19 +228,37 @@ namespace '/api' do
 
   get '/activities/@:handle' do
     user_handle  = params['handle']
-    data = UserActivities.run user_handle: user_handle
-    return data.to_json
+
+    model = UserActivities.run user_handle: user_handle
+    if model.errors.any?
+      status 422
+      return model.errors.to_json
+    else
+      status 200
+      return model.data.to_json
+    end # if model.errors.any?
   end
 
   get '/activities/search' do
     search_term = params['term']
-    data = SearchActivities.run search_term: search_term
-    return data.to_json
+
+    model = SearchActivities.run search_term: search_term
+    if model.errors.any?
+      status 422
+      return model.errors.to_json
+    else
+      status 200
+      return model.data.to_json
+    end # if model.errors.any?
   end
 
   post '/activities' do
-    message      = params['message']
-    user_handle  = params['handle']
+    message      = params[:message]
+    user_handle  = params[:handle]
+
+    puts "params: #{params.inspect}"
+    puts "message: #{message}"
+    puts "user_handle: #{user_handle}"
     model = CreateActivity.run message: message, user_handle: user_handle
     if model.errors.any?
       status 422
@@ -271,14 +289,23 @@ end
 update `services/user_activities.rb` with
 
 ```rb
+require "ostruct"
+
 class UserActivities
   def self.run user_handle:
-    results = [{
-      handle:  'Andrew Brown',
-      message: 'Cloud is fun!',
-      created_at: Time.now
-    }]
-    return results
+    model = OpenStruct.new(errors: [], data: nil)
+
+    if user_handle.nil? || user_handle.strip == ''
+      model.errors = ['blank_user_handle']
+    else
+      results = [{
+        handle:  'Andrew Brown',
+        message: 'Cloud is fun!',
+        created_at: Time.now
+      }]
+      model.data = results
+    end    
+    return model
   end
 end
 ```
@@ -286,14 +313,23 @@ end
 update `services/search_activities.rb` with:
 
 ```rb
+require "ostruct"
+
 class SearchActivities
   def self.run search_term:
-    results = [{
-      handle:  'Andrew Brown',
-      message: 'Cloud is fun!',
-      created_at: Time.now
-    }]
-    return results
+    model = OpenStruct.new(errors: [], data: nil)
+
+    if search_term.nil? || search_term.strip == ''
+      model.errors = ['search_term_blank']
+    else
+      results = [{
+        handle:  'Andrew Brown',
+        message: 'Cloud is fun!',
+        created_at: Time.now
+      }]
+      model.data = results
+    end    
+    return model
   end
 end
 ```
@@ -310,16 +346,31 @@ require "ostruct"
 
 class CreateActivity
   def self.run message:, user_handle:
-    data = {
-      handle:  user_handle,
-      message: message,
-      created_at: Time.now
-    }   
+    puts "HELLO!"
+    model = OpenStruct.new(errors: [], data: nil)
 
-    model = OpenStruct.new
-    model.errors = []
-    model.data = data
+    model.errors = ['user_handle_blank'] if user_handle.nil? || user_handle.strip == ''
+    
+    if message.nil? || message.strip == ''
+      model.errors = ['message_blank'] 
+    elsif message.size > 280
+      model.errors = ['message_exceed_max_chars'] 
+    end
 
+    if model.errors.any?
+      # return what we provided
+      model.data = {
+        handle:  user_handle,
+        message: message
+      }   
+    else
+      # return the committed payload
+      model.data = {
+        handle:  user_handle,
+        message: message,
+        created_at: Time.now
+      }   
+    end
     return model
   end
 end
@@ -333,14 +384,44 @@ curl -X POST http://localhost:4567/api/activities \
 -d '{"handle":"andrewbrown","message":"This will work"}'
 ```
 
+## Add Rack Contrib for PostBodyContentType
+
 This will fail to work because its expecting form data
 What we need to add the following after our requires:
 
 https://stackoverflow.com/questions/20932779/reading-parameters-on-sinatra-post
 
+> PostBodyContentTypeParser is deprecreated so we need to use rackbodyparser instead
+
+https://github.com/aars/rack-bodyparser
+
+```
+gem install rack-bodyparser
+```
 ```
 require 'rack/contrib'
-use Rack::PostBodyContentTypeParser
+use Rack::JSONBodyParser
+```
+
+## Reload Services files
+
+change this to remove `development?`
+
+```rb
+require "sinatra/reloader"
+```
+
+Add this to reload services direcotry
+
+```rb
+configure :development do
+  enable :reloader
+  pwd = File.dirname(__FILE__) 
+  also_reload "./services/*"
+  after_reload do
+    puts 'reloaded'
+  end
+end
 ```
 
 And add the following our Gemfile (remember to `bundle install`)

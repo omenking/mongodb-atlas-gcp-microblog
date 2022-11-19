@@ -1,13 +1,22 @@
 require 'sinatra'
 require "sinatra/namespace"
 require 'json'
-require "sinatra/reloader" if development?
+require "sinatra/reloader"
 require_relative "services/home_activities"
 require_relative "services/user_activities"
 require_relative "services/search_activities"
 require_relative "services/create_activity"
 require 'rack/contrib'
-use Rack::PostBodyContentTypeParser
+use Rack::JSONBodyParser
+
+configure :development do
+  enable :reloader
+  pwd = File.dirname(__FILE__) 
+  also_reload "./services/*"
+  after_reload do
+    puts 'reloaded'
+  end
+end
 
 namespace '/api' do
   before do
@@ -49,9 +58,6 @@ namespace '/api' do
     message      = params[:message]
     user_handle  = params[:handle]
 
-    puts "params: #{params.inspect}"
-    puts "message: #{message}"
-    puts "user_handle: #{user_handle}"
     model = CreateActivity.run message: message, user_handle: user_handle
     if model.errors.any?
       status 422
