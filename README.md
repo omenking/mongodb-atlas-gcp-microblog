@@ -47,14 +47,14 @@ This project's step by step instructions are tutorialized
 in steps here in the docs directory:
 
 - [Creating a Skeleton Sintra App as a docker container](docs/1-skeleton.md)
-- [Creating our simgple React frontend](docs/2-react.md)
-- [Containerizing our fronend and backend](docs/containerizing.md)
-- [Deploying our container to Google Cloud Run](docs/gcp-run.md)
-- [Implementing CRUD actions with local MongoDB](docs/mongdo-crud.md)
-- [Provisoning a production MongoDB Atlas](docs/mongdo-atlas.md)
-- [Implementing MongoDB Altas Search](docs/mongdo-atlas-search.md)
-- [Implementing MongoDB Change Streams](docs/mongdo-atlas-change-streams.md)
-- [Implementing Authenication](docs/auth.md)
+- [Creating a simgple React frontend](docs/2-react.md)
+- [Containerizing our fronend and backend](docs/3-containerizing.md)
+- [Deploying our container to Google Cloud Run](docs/4-gcp-run.md)
+- [Implementing CRUD actions with local MongoDB](docs/5-mongdo-crud.md)
+- [Provisoning a production MongoDB Atlas](docs/6-mongdo-atlas.md)
+- [Implementing MongoDB Altas Search](docs/7-mongdo-atlas-search.md)
+- [Implementing MongoDB Change Streams](docs/8-mongdo-atlas-change-streams.md)
+- [Implementing Authenication](docs/9-auth.md)
 
 ## Requirements and Technology Choices
 
