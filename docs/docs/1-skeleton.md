@@ -325,7 +325,28 @@ class CreateActivity
 end
 ```
 
+Test the endpoint by running the following in your terminal:
+```
+curl -X POST http://localhost:4567/api/activities \
+-H "Accept: application/json" \
+-H "Content-Type: application/json" \
+-d '{"handle":"andrewbrown","message":"This will work"}'
+```
 
+This will fail to work because its expecting form data
+What we need to add the following after our requires:
+
+https://stackoverflow.com/questions/20932779/reading-parameters-on-sinatra-post
+
+```
+require 'rack/contrib'
+use Rack::PostBodyContentTypeParser
+```
+
+And add the following our Gemfile (remember to `bundle install`)
+```
+gem 'rack-contrib'
+```
 
 
 ## Generate Fake User Data

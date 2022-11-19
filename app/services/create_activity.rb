@@ -5,6 +5,9 @@ class CreateActivity
     model = OpenStruct.new(errors: [], data: nil)
 
     model.errors = ['user_handle_blank'] if user_handle.nil? || user_handle.strip == ''
+    
+    puts "USER_HANDLE: #{user_handle}"
+    puts "MESSAGE: #{message}"
     if message.nil? || message.strip == ''
       model.errors = ['message_blank'] 
     else

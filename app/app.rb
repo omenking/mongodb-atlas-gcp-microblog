@@ -6,6 +6,8 @@ require_relative "services/home_activities"
 require_relative "services/user_activities"
 require_relative "services/search_activities"
 require_relative "services/create_activity"
+require 'rack/contrib'
+use Rack::PostBodyContentTypeParser
 
 namespace '/api' do
   before do
@@ -44,8 +46,12 @@ namespace '/api' do
   end
 
   post '/activities' do
-    message      = params['message']
-    user_handle  = params['handle']
+    message      = params[:message]
+    user_handle  = params[:handle]
+
+    puts "params: #{params.inspect}"
+    puts "message: #{message}"
+    puts "user_handle: #{user_handle}"
     model = CreateActivity.run message: message, user_handle: user_handle
     if model.errors.any?
       status 422

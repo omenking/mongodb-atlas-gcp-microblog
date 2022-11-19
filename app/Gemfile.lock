@@ -5,6 +5,8 @@ GEM
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
     rack (2.2.4)
+    rack-contrib (2.3.0)
+      rack (~> 2.0)
     rack-protection (3.0.3)
       rack
     rackup (0.1.0)
@@ -30,6 +32,7 @@ PLATFORMS
 
 DEPENDENCIES
   rack
+  rack-contrib
   rackup
   sinatra
   sinatra-contrib
