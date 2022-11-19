@@ -19,3 +19,12 @@ npx create-react-app frontend
 ```
 
 > I don't like React, I'm using it due to its popularity LOL.
+
+## Run sample app to ensure its working
+
+```
+cd frontened
+npm start
+```
+
+> This frontend start on port `3000`
