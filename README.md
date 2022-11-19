@@ -9,19 +9,37 @@ I decided to enter the [MongoDB Atlas Hackathon](https://dev.to/devteam/announci
 - I'm a GCP Cloud Champion and I wanted to contribute content for this year for modern application development
 - I enjoy the MongoDB Lounge at re:Invent 2021, and I'm looking forward to the MongoDB Longue 2022 LOL.
 
+## Goal 
+
+Build a simple microblogging platform to showcase a couple of features of MongoDB hosted on GCP and MongoDB Atlas
+
 ## Scope
 
-Lets build a simple microblogging project that allows users
-to sign up and post simple 280 characters.
+- users can create an activity with 280 characters
+- we can see activity for a specific user
+- We will only show a history of the last 100 activity for any feed
+- We can search all activity and show 30 results
+- we can see changes pushed to the home feed in realtime
+- users can create an account with (handle, email, password)
 
-Things we might not implement so we can focus on cloud:
-- profile pages
+## Out-of-Scope
+
+What is out of scope for this projecet:
+- avatars
+- advanced media content
+- deleting (or editing activity)
 - followerships
-- likings posts
+- liking
 
-This app might look ugly LOL.
+These are stretch goals for you to implement 🙃
 
-We might not bother with IaC or CI/CD but if we did I'd use Github Actions and Terraform.
+## Other Considerations
+
+- This app might look ugly LOL
+- We aren't using Iac (if we did Terraform is a good choice)
+- We aren't implement CI/CD (if we did Github Actions is a good choice)
+
+These are stretch goals for you to implement 🙃
 
 ## Instructional Tutorial
 
@@ -29,6 +47,8 @@ This project's step by step instructions are tutorialized
 in steps here in the docs directory:
 
 - [Creating a Skeleton Sintra App as a docker container](docs/1-skeleton.md)
+- [Creating our simgple React frontend](docs/2-react.md)
+- [Containerizing our fronend and backend](docs/containerizing.md)
 - [Deploying our container to Google Cloud Run](docs/gcp-run.md)
 - [Implementing CRUD actions with local MongoDB](docs/mongdo-crud.md)
 - [Provisoning a production MongoDB Atlas](docs/mongdo-atlas.md)
@@ -43,3 +63,4 @@ in steps here in the docs directory:
 - MongoDB Atlas Account
 - Authenication? (TBD)
 - Ruby and Sinatra
+- React (no redux!)

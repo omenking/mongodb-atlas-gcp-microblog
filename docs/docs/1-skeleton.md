@@ -120,3 +120,15 @@ bundle exec rackup --host 0.0.0.0 -p 4567
 - bundle exec - is an explict way to run our rackup command in the context of our gemfile
 - --host - We want to bind on port 0.0.0.0, this will be important when we are running the app in a container so we can route traffic out of the container
 - --port - We are going to run on port 4567 because this is the standard convention for sintra apps but we could make this port whatever like to be honest.
+
+## Implement our API / Routes
+
+Our sintra app will be responsbile for serving up our API as JSON.
+Lets first describe our endpoints before we implement them:
+
+- GET /api/activities/home - the activity for entire website (the townsquare)
+- GET /api/activities/user/:handle - the activity for a specific user
+- POST /api/activities - a user creating an activity
+- GET /api/activities/search?term=term - being able to search across all activity
+
+> There will be more api endpoints later we implement Authenication

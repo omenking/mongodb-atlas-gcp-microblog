@@ -1,5 +1,7 @@
 require 'sinatra'
 
 get '/' do
-  'Hello World!'
+  'Home Feed'
 end
+
+get 'api'
