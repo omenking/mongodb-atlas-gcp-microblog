@@ -64,7 +64,7 @@ This will generate a Gemfile which will specific what exact versions of gems you
 
 In your `app/app.rb` file:
 
-```
+```rb
 require 'sinatra'
 
 get '/' do
@@ -77,7 +77,7 @@ Here we've defined a root path eg: localhost:4567/ which the home page of our ap
 
 In your `config.ru` add the following:
 
-```
+```rb
 require './app.rb'
 run Sinatra::Application
 ```
@@ -136,7 +136,7 @@ Lets first describe our endpoints before we implement them:
 ## Setup Namespace and first JSON API endpoint
 
 Add the following to the `app/Gemfile`:
-```
+```rb
 gem 'sinatra-contrib'
 ```
 
@@ -196,7 +196,8 @@ Now we can just updated code and check it.
 ## Implement mock endpoints
 
 We'll create a services directory and file for each action:
-```
+
+```sh
 cd $THEIA_WORKSPACE_ROOT/app
 mkdir services
 cd services
