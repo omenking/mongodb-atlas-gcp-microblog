@@ -144,6 +144,14 @@ function App() {
 export default App;
 ```
 
+Test the routes:
+```
+gp preview $(gp url 3000)/ --external
+gp preview $(gp url 3000)/@andrewbrown --external
+```
+
+
+
 
 ## Create needed components
 
