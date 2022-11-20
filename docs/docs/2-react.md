@@ -32,6 +32,12 @@ npm start
 
 ## Implementing a Router
 
+> React Router docs show version 5 we are using 6 so we have do figure some things out
+
+https://stackoverflow.com/questions/63124161/attempted-import-error-switch-is-not-exported-from-react-router-dom
+https://stackoverflow.com/questions/69864165/error-privateroute-is-not-a-route-component-all-component-children-of-rou
+https://reactrouter.com/en/main/start/tutorial
+
 Things we need from a page level:
 - HomeFeedPage
 - UserFeedPage
@@ -82,6 +88,60 @@ touch  src/pages/HomeFeedPage.js
 touch  src/pages/HomeFeedPage.css
 touch  src/pages/UserFeedPage.js
 touch  src/pages/UserFeedPage.css
+```
+
+In the HomeFeedPage.js:
+
+```js
+import './HomeFeedPage.css';
+
+export default function HomeFeedPage() {
+  return (
+    <div>Home Feed</div>
+  );
+}
+```
+
+In the UserFeedPage.js:
+```js
+import './UserFeedPage.css';
+
+export default function UserFeedPage() {
+  return (
+    <div>User Feed</div>
+  );
+}
+```
+
+We need to update our App.js as follows:
+
+```js
+import './App.css';
+import HomeFeedPage from './pages/HomeFeedPage';
+import UserFeedPage from './pages/UserFeedPage';
+import {
+  createBrowserRouter,
+  RouterProvider
+} from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomeFeedPage />
+  },
+  {
+    path: "/@:handle",
+    element: <UserFeedPage />
+  }
+]);
+
+function App() {
+  return (
+    <RouterProvider router={router} />
+  );
+}
+
+export default App;
 ```
 
 

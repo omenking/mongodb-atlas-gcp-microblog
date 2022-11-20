@@ -1,8 +1,7 @@
 import './HomeFeedPage.css';
 
-function HomeFeedPage() {
+export default function HomeFeedPage() {
   return (
+    <div>Home Feed</div>
   );
 }
-
-export default HomeFeedPage;

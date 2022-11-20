@@ -1,8 +1,7 @@
 import './UserFeedPage.css';
 
-function UserFeedPage() {
+export default function UserFeedPage() {
   return (
+    <div>User Feed</div>
   );
 }
-
-export default UserFeedPage;

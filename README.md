@@ -46,7 +46,7 @@ These are stretch goals for you to implement 🙃
 This project's step by step instructions are tutorialized
 in steps here in the docs directory:
 
-- [Creating a Skeleton Sintra App as a docker container](docs/1-skeleton.md)
+- [Creating a Skeleton Sinatra App as a docker container](docs/1-skeleton.md)
 - [Creating a simgple React frontend](docs/2-react.md)
 - [Containerizing our fronend and backend](docs/3-containerizing.md)
 - [Deploying our container to Google Cloud Run](docs/4-gcp-run.md)

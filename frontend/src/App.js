@@ -2,19 +2,24 @@ import './App.css';
 import HomeFeedPage from './pages/HomeFeedPage';
 import UserFeedPage from './pages/UserFeedPage';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route
+  createBrowserRouter,
+  RouterProvider
 } from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomeFeedPage />
+  },
+  {
+    path: "/@:handle",
+    element: <UserFeedPage />
+  }
+]);
 
 function App() {
   return (
-    <Router>
-       <Switch>
-          <Route path="/"><HomeFeedPage /></Route>
-          <Route path="/@:handle"><UserFeedPage /></Route>
-        </Switch>
-    </Router>
+    <RouterProvider router={router} />
   );
 }
 
