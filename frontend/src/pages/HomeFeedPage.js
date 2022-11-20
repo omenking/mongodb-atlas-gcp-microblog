@@ -1,5 +1,6 @@
 import './HomeFeedPage.css';
 import ActivityFeed from '../components/ActivityFeed';
+import ActivityForm from '../components/ActivityForm';
 
 export default function HomeFeedPage() {
   const activities = [
@@ -11,6 +12,9 @@ export default function HomeFeedPage() {
   ];
 
   return (
-    <ActivityFeed activities={activities} />
+    <article>
+      <ActivityForm />
+      <ActivityFeed title="Home" activities={activities} />
+    </article>
   );
 }

@@ -2,5 +2,23 @@
   display: flex;
   flex-direction: column;
   border-radius: 4px;
-  margin: 12px;
+  margin: 16px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.activity_feed_collection {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity_feed_heading {
+  background: rgb(50,53,66);
+  padding: 16px;
+}
+
+.activity_feed_heading .title{
+  color: #fff;
+  font-weight: 800;
+  font-size: 20px;
 }
