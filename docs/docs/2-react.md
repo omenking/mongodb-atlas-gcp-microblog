@@ -150,13 +150,20 @@ gp preview $(gp url 3000)/ --external
 gp preview $(gp url 3000)/@andrewbrown --external
 ```
 
-
-
-
 ## Create needed components
 
 Things that we need from a component level:
 - ActivityItem (think a tweet)
 - ActivitFeed (a list of activity)
-- ActivityForm (a popup to write an activity)
-- CreateActivityButton (a button that will open the popup to write an activity)
+- ActivityForm (a form to write a activity)
+
+```
+cd $THEIA_WORKSPACE_ROOT/frontend
+mkdir src/components
+touch  src/components/ActivityFeed.js
+touch  src/components/ActivityItem.js
+touch  src/components/ActivityForm.js
+touch  src/components/ActivityFeed.css
+touch  src/components/ActivityItem.css
+touch  src/components/ActivityForm.css
+```
