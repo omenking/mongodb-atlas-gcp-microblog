@@ -3,10 +3,8 @@ import ActivityFeed from '../components/ActivityFeed';
 import { useParams } from 'react-router-dom';
 
 export default function UserFeedPage() {
-  const get_title = (value) => {
-    const params = useParams();
-    return `@${params.handle}`
-  };
+  const params = useParams();
+  const title = `@${params.handle}`;
 
   const activities = [
     {uuid: '95203', handle: 'andrewbrown', created_at: '2022-11-20T20:41:18+00:00', message: "This is my post"},
@@ -18,7 +16,7 @@ export default function UserFeedPage() {
 
   return (
     <article>
-      <ActivityFeed title={get_title()} activities={activities} />
+      <ActivityFeed title={title} activities={activities} />
     </article>
   );
 }

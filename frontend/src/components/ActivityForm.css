@@ -44,3 +44,7 @@ form button[type='submit'] {
 form.activity_form .count {
   color: rgba(255,255,255,0.3)
 }
+
+form.activity_form .count.err {
+  color: rgb(255, 0, 0)
+}
