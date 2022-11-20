@@ -157,7 +157,7 @@ Things that we need from a component level:
 - ActivitFeed (a list of activity)
 - ActivityForm (a form to write a activity)
 
-```
+```sh
 cd $THEIA_WORKSPACE_ROOT/frontend
 mkdir src/components
 touch  src/components/ActivityFeed.js
@@ -166,4 +166,8 @@ touch  src/components/ActivityForm.js
 touch  src/components/ActivityFeed.css
 touch  src/components/ActivityItem.css
 touch  src/components/ActivityForm.css
+```
+
+```sh
+npm install --save luxon
 ```

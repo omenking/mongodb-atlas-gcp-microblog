@@ -23,7 +23,7 @@ class CreateActivity
       model.data = {
         handle:  user_handle,
         message: message,
-        created_at: Time.now
+        created_at: Time.now.iso8601
       }   
     end
     return model

@@ -10,7 +10,7 @@ class UserActivities
       results = [{
         handle:  'Andrew Brown',
         message: 'Cloud is fun!',
-        created_at: Time.now
+        created_at: Time.now.iso8601
       }]
       model.data = results
     end    

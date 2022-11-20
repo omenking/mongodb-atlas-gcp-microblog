@@ -3,11 +3,11 @@ import ActivityFeed from '../components/ActivityFeed';
 
 export default function HomeFeedPage() {
   const activities = [
-    {uuid: '95203', handle: 'andrewbrown', posted_at: '2050-11-20 18:32:47 +0000', message: "This is my post"},
-    {uuid: '57393', handle: 'andrewbrown', posted_at: '2050-10-20 09:22:47 +0000', message: "Lets get this posting started"},
-    {uuid: '16984', handle: 'andrewbrown', posted_at: '2050-09-20 14:32:47 +0000', message: "Lets make some more posts"},
-    {uuid: '52342', handle: 'andrewbrown', posted_at: '2050-09-10 18:32:47 +0000', message: "Posts are great"},
-    {uuid: '32424', handle: 'andrewbrown', posted_at: '2050-09-08 18:32:47 +0000', message: "How is it going?"}
+    {uuid: '95203', handle: 'andrewbrown', created_at: '2022-11-20T20:41:18+00:00', message: "This is my post"},
+    {uuid: '57393', handle: 'themachine', created_at: '2022-11-20T09:41:18+00:00', message: "Lets get this posting started"},
+    {uuid: '16984', handle: 'federator', created_at: '2022-11-13T20:41:18+00:00', message: "Lets make some more posts"},
+    {uuid: '52342', handle: 'jojo1212', created_at: '2022-11-10T20:41:18+00:00', message: "Posts are great"},
+    {uuid: '32424', handle: 'sallycakes', created_at: '2022-08-02T20:41:18+00:00', message: "How is it going?"}
   ];
 
   return (
