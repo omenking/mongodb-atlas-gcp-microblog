@@ -3,8 +3,7 @@ import React from "react";
 
 export default function ActivityForm() {
   const [count, setCount] = React.useState(0);
-
-  const state = {value: ''};
+  const [message, setMessage] = React.useState('');
 
   const classes = []
   classes.push('count')
@@ -13,13 +12,13 @@ export default function ActivityForm() {
   }
 
   const onsubmit = (event) => {
-    console.log('submitting',state);
+    console.log('submitting', message);
     event.preventDefault();
   }
 
   const textarea_onchange = (event) => {
-    setCount(event.target.value.length)
-    React.setState({value: event.target.value})
+    setCount(event.target.value.length);
+    setMessage(event.target.value);
   }
 
   return (
@@ -28,8 +27,9 @@ export default function ActivityForm() {
       onSubmit={onsubmit}
     >
       <textarea
-        value={state.value}
+        type="text"
         placeholder="what would you like to say?"
+        value={message}
         onChange={textarea_onchange} 
       />
       <div className='submit'>
