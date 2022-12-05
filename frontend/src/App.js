@@ -10,6 +10,13 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeFeedPage />
+    loader: async ({ request, params }) => {
+      return fetch(
+        `/fake/api/teams/${params.teamId}.json`,
+        { signal: request.signal }
+      );
+    },
+
   },
   {
     path: "/@:handle",
