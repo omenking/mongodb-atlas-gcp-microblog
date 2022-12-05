@@ -16,7 +16,7 @@ export default function ActivityForm() {
     console.log('submitting', message);
     event.preventDefault();
     try {
-      const backend_url = `${process.env.REACT_APP_BACKEND_URL}`
+      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities`
       console.log(process.env)
       const res = await fetch(backend_url, {
         method: "POST",
