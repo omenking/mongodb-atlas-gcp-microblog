@@ -427,3 +427,17 @@ configure :development do
   end
 end
 ```
+
+## Allow Cors
+
+We want to ensure that an API made from the same subdomain or naked domain will work.
+We need to add CORS support for Sinatra to do that
+
+Update `app.rb` to include:
+
+```rb
+require "sinatra/cors"
+
+set :allow_origin, "https://3000-omenking-mongodbatlasgc-e0z3v319z12.ws-us77.gitpod.io"
+set :allow_methods, "GET,HEAD,POST,PUT,PATCH,DELETE"
+```

@@ -7,7 +7,12 @@ require_relative "services/user_activities"
 require_relative "services/search_activities"
 require_relative "services/create_activity"
 require 'rack/contrib'
+require "sinatra/cors"
+
 use Rack::JSONBodyParser
+
+set :allow_origin, "https://3000-omenking-mongodbatlasgc-e0z3v319z12.ws-us77.gitpod.io"
+set :allow_methods, "GET,HEAD,POST,PUT,PATCH,DELETE"
 
 configure :development do
   enable :reloader
@@ -56,11 +61,12 @@ namespace '/api' do
 
   post '/activities' do
     message      = params[:message]
-    user_handle  = params[:handle]
+    user_handle  = 'andrewbrown' # hardcoded for now
 
     model = CreateActivity.run message: message, user_handle: user_handle
     if model.errors.any?
-      status 422
+      puts 'test errors'
+      puts model.errors.to_json
       return model.errors.to_json
     else
       status 200

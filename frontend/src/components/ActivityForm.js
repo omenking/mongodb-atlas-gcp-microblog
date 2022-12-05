@@ -15,7 +15,7 @@ export default function ActivityForm() {
     console.log('submitting', message);
     event.preventDefault();
     try {
-      let res = await fetch("https://3000-omenking-mongodbatlasgc-e0z3v319z12.ws-us77.gitpod.io/api/activities", {
+      let res = await fetch("https://4567-omenking-mongodbatlasgc-e0z3v319z12.ws-us77.gitpod.io/api/activities", {
         method: "POST",
         body: JSON.stringify({
           message: message
