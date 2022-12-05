@@ -11,8 +11,24 @@ export default function ActivityForm() {
     classes.push('err')
   }
 
-  const onsubmit = (event) => {
+  const onsubmit = async (event) => {
     console.log('submitting', message);
+    try {
+      let res = await fetch("https://localhost:4567/api/activities", {
+        method: "POST",
+        body: JSON.stringify({
+          message: message
+        }),
+      });
+      let resJson = await res.json();
+      if (res.status === 200) {
+        console.log(res,resJson)
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
     event.preventDefault();
   }
 

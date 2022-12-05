@@ -106,7 +106,7 @@ This will start the server on a port `9292` by default
 
 Using this Gitpod CLI command lets view it the browser:
 ```
-gp preview $(gp url 4567) --external
+gp preview $(gp url 9292) --external
 ```
 
 You should see the web-app running.
