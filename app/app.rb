@@ -11,7 +11,10 @@ require "sinatra/cors"
 
 use Rack::JSONBodyParser
 
-set :allow_origin, "https://3000-omenking-mongodbatlasgc-e0z3v319z12.ws-us77.gitpod.io"
+backend  = "https://4567-#{ENV['GITPOD_WORKSPACE_ID']}.#{ENV['GITPOD_WORKSPACE_CLUSTER_HOST']}"
+frontend = "https://3000-#{ENV['GITPOD_WORKSPACE_ID']}.#{ENV['GITPOD_WORKSPACE_CLUSTER_HOST']}"
+
+set :allow_origin , [backend,frontend].join(' ')
 set :allow_methods, "GET,HEAD,POST,PUT,PATCH,DELETE"
 
 configure :development do
