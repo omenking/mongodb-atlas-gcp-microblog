@@ -13,8 +13,9 @@ export default function ActivityForm() {
 
   const onsubmit = async (event) => {
     console.log('submitting', message);
+    event.preventDefault();
     try {
-      let res = await fetch("https://localhost:4567/api/activities", {
+      let res = await fetch("https://3000-omenking-mongodbatlasgc-e0z3v319z12.ws-us77.gitpod.io/api/activities", {
         method: "POST",
         body: JSON.stringify({
           message: message
@@ -29,7 +30,6 @@ export default function ActivityForm() {
     } catch (err) {
       console.log(err);
     }
-    event.preventDefault();
   }
 
   const textarea_onchange = (event) => {
