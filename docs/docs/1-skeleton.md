@@ -428,7 +428,7 @@ configure :development do
 end
 ```
 
-## Allow Cors
+## Allow Cors and Env Vars
 
 We want to ensure that an API made from the same subdomain or naked domain will work.
 We need to add CORS support for Sinatra to do that
@@ -438,6 +438,9 @@ Update `app.rb` to include:
 ```rb
 require "sinatra/cors"
 
-set :allow_origin, "https://3000-omenking-mongodbatlasgc-e0z3v319z12.ws-us77.gitpod.io"
+backend  = "https://4567-#{ENV['GITPOD_WORKSPACE_ID']}.#{ENV['GITPOD_WORKSPACE_CLUSTER_HOST']}"
+frontend = "https://3000-#{ENV['GITPOD_WORKSPACE_ID']}.#{ENV['GITPOD_WORKSPACE_CLUSTER_HOST']}"
+
+set :allow_origin , [backend,frontend].join(' ')
 set :allow_methods, "GET,HEAD,POST,PUT,PATCH,DELETE"
 ```

@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
+gem 'sinatra-cors'
 gem 'webrick'
 gem 'rack'
 gem 'rackup'

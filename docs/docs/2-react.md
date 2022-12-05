@@ -171,3 +171,16 @@ touch  src/components/ActivityForm.css
 ```sh
 npm install --save luxon
 ```
+
+## Env Vars for Backend
+
+Update the `package.json`
+
+```json
+  "scripts": {
+    "start": "REACT_APP_BACKEND_URL=\"https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}\" react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+```

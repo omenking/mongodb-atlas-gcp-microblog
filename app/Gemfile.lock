@@ -24,6 +24,7 @@ GEM
       rack-protection (= 3.0.3)
       sinatra (= 3.0.3)
       tilt (~> 2.0)
+    sinatra-cors (1.2.0)
     tilt (2.0.11)
     webrick (1.7.0)
 
@@ -36,6 +37,7 @@ DEPENDENCIES
   rackup
   sinatra
   sinatra-contrib
+  sinatra-cors
   webrick
 
 BUNDLED WITH

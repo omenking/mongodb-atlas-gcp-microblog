@@ -1,5 +1,6 @@
 import './ActivityForm.css';
 import React from "react";
+import process from 'process';
 
 export default function ActivityForm() {
   const [count, setCount] = React.useState(0);
@@ -15,7 +16,9 @@ export default function ActivityForm() {
     console.log('submitting', message);
     event.preventDefault();
     try {
-      let res = await fetch("https://4567-omenking-mongodbatlasgc-e0z3v319z12.ws-us77.gitpod.io/api/activities", {
+      const backend_url = `${process.env.REACT_APP_BACKEND_URL}`
+      console.log(process.env)
+      const res = await fetch(backend_url, {
         method: "POST",
         body: JSON.stringify({
           message: message
