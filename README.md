@@ -1,5 +1,6 @@
 # Building a Microblogging platform on MongoDB Atlas and GCP
 
+
 # Motivation
 
 I decided to enter the [MongoDB Atlas Hackathon](https://dev.to/devteam/announcing-the-mongodb-atlas-hackathon-2022-on-dev-2107) for the following reasons:
