@@ -11,15 +11,13 @@ require 'rack/contrib'
 
 use Rack::JSONBodyParser
 
-backend  = "https://4567-#{ENV['GITPOD_WORKSPACE_ID']}.#{ENV['GITPOD_WORKSPACE_CLUSTER_HOST']}"
-frontend = "https://3000-#{ENV['GITPOD_WORKSPACE_ID']}.#{ENV['GITPOD_WORKSPACE_CLUSTER_HOST']}"
+backend  = ENV['BACKEND_URL']
+frontend = ENV['FRONTEND_URL']
 
-puts "disable cors"
-#set :allow_origin , [backend,frontend].join(' ')
-#set :allow_origin , "*"
-#set :allow_methods, "GET,HEAD,POST,PUT,PATCH,DELETE"
-#set :allow_headers, "content-type,if-modified-since"
-#set :expose_headers, "location,link"
+set :allow_origin , [backend,frontend].join(' ')
+set :allow_methods, "GET,HEAD,POST,PUT,PATCH,DELETE"
+set :allow_headers, "content-type,if-modified-since"
+set :expose_headers, "location,link"
 
 configure :development do
   enable :reloader
