@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  app:
+    build: ./app
+    command: bundle exec rackup --host 0.0.0.0 -p 4567
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./app:/app

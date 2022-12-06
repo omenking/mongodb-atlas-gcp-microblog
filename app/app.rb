@@ -7,17 +7,19 @@ require_relative "services/user_activities"
 require_relative "services/search_activities"
 require_relative "services/create_activity"
 require 'rack/contrib'
-require "sinatra/cors"
+#require "sinatra/cors"
 
 use Rack::JSONBodyParser
 
 backend  = "https://4567-#{ENV['GITPOD_WORKSPACE_ID']}.#{ENV['GITPOD_WORKSPACE_CLUSTER_HOST']}"
 frontend = "https://3000-#{ENV['GITPOD_WORKSPACE_ID']}.#{ENV['GITPOD_WORKSPACE_CLUSTER_HOST']}"
 
-set :allow_origin , [backend,frontend].join(' ')
-set :allow_methods, "GET,HEAD,POST,PUT,PATCH,DELETE"
-set :allow_headers, "content-type,if-modified-since"
-set :expose_headers, "location,link"
+puts "disable cors"
+#set :allow_origin , [backend,frontend].join(' ')
+#set :allow_origin , "*"
+#set :allow_methods, "GET,HEAD,POST,PUT,PATCH,DELETE"
+#set :allow_headers, "content-type,if-modified-since"
+#set :expose_headers, "location,link"
 
 configure :development do
   enable :reloader
