@@ -2,7 +2,7 @@ import './ActivityForm.css';
 import React from "react";
 import process from 'process';
 
-export default function ActivityForm() {
+export default function ActivityForm(props) {
   const [count, setCount] = React.useState(0);
   const [message, setMessage] = React.useState('');
 
@@ -13,21 +13,25 @@ export default function ActivityForm() {
   }
 
   const onsubmit = async (event) => {
-    console.log('submitting', message);
     event.preventDefault();
     try {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities`
-      console.log(process.env)
+      console.log('onsubmit payload', message)
       const res = await fetch(backend_url, {
         method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           message: message
         }),
       });
-      let resJson = await res.json();
+      let activity = await res.json();
       if (res.status === 200) {
-        console.log(res,resJson)
+        props.setActivities(current => [activity,...current]);
       } else {
+
         console.log(res)
       }
     } catch (err) {

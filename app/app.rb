@@ -16,6 +16,8 @@ frontend = "https://3000-#{ENV['GITPOD_WORKSPACE_ID']}.#{ENV['GITPOD_WORKSPACE_C
 
 set :allow_origin , [backend,frontend].join(' ')
 set :allow_methods, "GET,HEAD,POST,PUT,PATCH,DELETE"
+set :allow_headers, "content-type,if-modified-since"
+set :expose_headers, "location,link"
 
 configure :development do
   enable :reloader
@@ -63,6 +65,7 @@ namespace '/api' do
   end
 
   post '/activities' do
+    puts "set params: #{params.inspect}"
     message      = params[:message]
     user_handle  = 'andrewbrown' # hardcoded for now
 
@@ -70,6 +73,7 @@ namespace '/api' do
     if model.errors.any?
       puts 'test errors'
       puts model.errors.to_json
+      status 422
       return model.errors.to_json
     else
       status 200

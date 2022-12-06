@@ -1,6 +1,8 @@
 import './App.css';
 import HomeFeedPage from './pages/HomeFeedPage';
 import UserFeedPage from './pages/UserFeedPage';
+import React from 'react';
+
 import {
   createBrowserRouter,
   RouterProvider
@@ -10,13 +12,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeFeedPage />
-    loader: async ({ request, params }) => {
-      return fetch(
-        `/fake/api/teams/${params.teamId}.json`,
-        { signal: request.signal }
-      );
-    },
-
   },
   {
     path: "/@:handle",
@@ -25,6 +20,8 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  
+
   return (
     <RouterProvider router={router} />
   );
