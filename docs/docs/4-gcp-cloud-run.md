@@ -94,3 +94,68 @@ docker push us-east1-docker.pkg.dev/cruddur/frontend-react/frontend-react:latest
 
 Now that we have containers in a repo.
 We need to push them to GCP Cloud Run
+
+
+### Install Terraform
+
+```sh
+sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt-get update && sudo apt-get install terraform
+```
+
+### Create Terraform File
+
+Well create a new folder called `iac-terraform` and new file in it called `main.tf`
+
+```
+mkdir iac-terraform
+touch iac-terraform/main.tf
+```
+
+Inside our `main.tf`
+
+```tf
+provider "google" {
+  project     = "cruddur"
+  region      = "us-east1"
+}
+
+data "google_container_image" "my_image" {
+  provider = google
+  name     = "us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-sinatra:latest"
+}
+
+resource "google_cloud_run_service" "my_service" {
+  provider = google
+
+  metadata {
+    name = "frontend"
+  }
+
+  spec {
+    template {
+      spec {
+        containers {
+          image = data.google_container_image.my_image.name
+        }
+      }
+    }
+  }
+}
+```
+
+### Provision GCP Cloud RUn
+
+https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference
+
+We are going to use GCloud to authenicate
+
+```sh
+gcloud auth application-default login
+```
+
+```sh
+terraform init
+```
