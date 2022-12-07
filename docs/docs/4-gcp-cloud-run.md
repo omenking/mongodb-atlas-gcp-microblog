@@ -47,3 +47,27 @@ gcloud artifacts repositories create frontend-react \
 --location=$REGION \
 --description="Frontend React for Cruddur Microblogger"
 ```
+
+## Configure Docker Authentication to Artifact Registry
+
+```sh
+gcloud auth configure-docker us-east1-docker.pkg.dev
+```
+
+### Tag Containers
+
+```
+docker images
+```
+
+```
+docker tag mongodb-atlas-gcp-microblog-app us-east1-docker.pkg.dev/cruddur/backend-sinatra:latest
+docker tag mongodb-atlas-gcp-microblog-frontend us-east1-docker.pkg.dev/cruddur/frontend-react:latest
+```
+
+## Push containers 
+
+```
+docker push us-east1-docker.pkg.dev/cruddur/backend-sinatra:latest
+docker push us-east1-docker.pkg.dev/cruddur/frontend-react:latest
+```
