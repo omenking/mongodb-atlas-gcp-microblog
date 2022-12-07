@@ -146,15 +146,19 @@ resource "google_cloud_run_service" "my_service" {
 }
 ```
 
-### Provision GCP Cloud RUn
+### Provision GCP Cloud Run
 
 https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/provider_reference
 
 We are going to use GCloud to authenicate
 
-```sh
-gcloud auth application-default login
+
+Confirm who we are:
 ```
+gcloud auth list 
+gcloud config list account
+```
+
 
 ```sh
 cd iac-terraform
@@ -198,4 +202,12 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+```
+
+## Run Terraform Plan
+
+See if it catches anywheres
+
+```
+terraform plan
 ```

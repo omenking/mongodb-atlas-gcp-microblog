@@ -60,7 +60,7 @@ FROM node:12.16.1-alpine
 
 COPY . /frontend
 WORKDIR /frontend
-RUN npm install
+RUN npm instalGl
 EXPOSE 3000
 CMD ["npm", "start"]
 ```

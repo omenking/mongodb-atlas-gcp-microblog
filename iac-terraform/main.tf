@@ -15,12 +15,10 @@ resource "google_cloud_run_service" "my_service" {
     name = "frontend"
   }
 
-  spec {
-    template {
-      spec {
-        containers {
-          image = data.google_container_image.my_image.name
-        }
+  template {
+    spec {
+      containers {
+        image = data.google_container_image.my_image.name
       }
     }
   }
