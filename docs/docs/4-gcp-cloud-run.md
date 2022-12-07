@@ -69,6 +69,11 @@ gcloud artifacts repositories create frontend-react \
 gcloud auth configure-docker us-east1-docker.pkg.dev
 ```
 
+## Update containers to listen on env var port
+
+GCP Cloud Run expects the app to listen on port 8080.
+You aren't suppose to hardcode the value but use an env var called PORT instead
+
 ### Tag Containers
 
 > Pushes should be of the form docker push HOST-NAME/PROJECT-ID/REPOSITORY/IMAGE
@@ -125,9 +130,8 @@ provider "google" {
 resource "google_cloud_run_service" "my_service" {
   provider = google
 
-  metadata {
-    name = "frontend"
-  }
+  name     = "backend"
+  location = "us-east1"
 
   template {
     spec {
@@ -150,6 +154,12 @@ Confirm who we are:
 ```
 gcloud auth list 
 gcloud config list account
+```
+
+We do need to auth again:
+
+```
+gcloud auth application-default login
 ```
 
 
@@ -197,10 +207,22 @@ override.tf.json
 terraform.rc
 ```
 
+## Enable gcloud services
+
+```
+gcloud services enable run.googleapis.com
+```
+
 ## Run Terraform Plan
 
 See if it catches anywheres
 
 ```
 terraform plan
+```
+
+## Run Terraform Apply
+
+```
+terraform apply
 ```

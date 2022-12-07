@@ -1,14 +1,13 @@
 provider "google" {
-  project     = "cruddur"
-  region      = "us-east1"
+  project = "cruddur"
+  region  = "us-east1"
 }
 
 resource "google_cloud_run_service" "my_service" {
   provider = google
 
-  metadata {
-    name = "frontend"
-  }
+  name     = "backend"
+  location = "us-east1"
 
   template {
     spec {
