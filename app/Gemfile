@@ -7,3 +7,6 @@ gem 'rack'
 gem 'rackup'
 gem 'sinatra-contrib'
 gem 'rack-contrib'
+
+# mongodb ruby driver
+gem "mongo", "~> 2"

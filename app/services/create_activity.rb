@@ -12,6 +12,13 @@ class CreateActivity
       model.errors = ['message_exceed_max_chars'] 
     end
 
+    model.data = {
+      handle:  user_handle,
+      message: message,
+      created_at: Time.now.iso8601
+    }   
+    response = Mongo::Database.insert_document Mongo::Database.db[:activities], model.data
+
     if model.errors.any?
       # return what we provided
       model.data = {
@@ -23,8 +30,9 @@ class CreateActivity
       model.data = {
         handle:  user_handle,
         message: message,
-        created_at: Time.now.iso8601
-      }   
+        created_at: Time.now.iso8601,
+        records_created: response
+      }
     end
     return model
   end

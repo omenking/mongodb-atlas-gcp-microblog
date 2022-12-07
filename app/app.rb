@@ -8,6 +8,7 @@ require_relative "services/search_activities"
 require_relative "services/create_activity"
 require 'rack/contrib'
 require "sinatra/cors"
+require_relative "config/initializers/mongo"
 
 # nada 
 use Rack::JSONBodyParser
@@ -20,6 +21,9 @@ set :allow_methods, "GET,HEAD,POST,PUT,PATCH,DELETE"
 set :allow_headers, "content-type,if-modified-since"
 set :expose_headers, "location,link"
 
+### BAYKO
+set :logger, Logger.new(STDOUT) 
+    
 configure :development do
   enable :reloader
   pwd = File.dirname(__FILE__) 
@@ -56,6 +60,10 @@ namespace '/api' do
     search_term = params['term']
 
     model = SearchActivities.run search_term: search_term
+    
+    ### BAYKO
+    logger.info model.data.to_json
+    
     if model.errors.any?
       status 422
       return model.errors.to_json
@@ -69,8 +77,11 @@ namespace '/api' do
     puts "set params: #{params.inspect}"
     message      = params[:message]
     user_handle  = 'andrewbrown' # hardcoded for now
-
     model = CreateActivity.run message: message, user_handle: user_handle
+    
+    ### BAYKO
+    logger.info model.data.to_json
+    
     if model.errors.any?
       puts 'test errors'
       puts model.errors.to_json
