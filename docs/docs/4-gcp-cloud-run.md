@@ -45,9 +45,9 @@ export REGION=$(gcloud config get-value compute/region)
 
 ## Push containers to GCP Artifact Registry
 
-We first need to push these images to the artifact registry.
+We first need to push these images to the GCP artifact registry.
 
-We'll run these commands in GCP CloudShell
+### Create Repos
 
 ```sh
 gcloud artifacts repositories create backend-sinatra \
@@ -63,7 +63,7 @@ gcloud artifacts repositories create frontend-react \
 --description="Frontend React for Cruddur Microblogger"
 ```
 
-## Configure Docker Authentication to Artifact Registry
+### Configure Docker Authentication to Artifact Registry
 
 ```sh
 gcloud auth configure-docker us-east1-docker.pkg.dev
@@ -83,9 +83,14 @@ docker tag cruddur-app us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-s
 docker tag cruddur-frontend us-east1-docker.pkg.dev/cruddur/frontend-react/frontend-react:latest
 ```
 
-## Push containers 
+### Push containers 
 
 ```
 docker push us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-sinatra:latest
 docker push us-east1-docker.pkg.dev/cruddur/frontend-react/frontend-react:latest
 ```
+
+## Run Containers onto GCP
+
+Now that we have containers in a repo.
+We need to push them to GCP Cloud Run
