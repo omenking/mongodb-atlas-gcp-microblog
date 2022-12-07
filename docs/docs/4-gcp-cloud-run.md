@@ -1,5 +1,7 @@
 ## Install GCloud in Gitpod
 
+https://cloud.google.com/blog/topics/developers-practitioners/serverless-load-balancing-terraform-hard-way
+
 https://cloud.google.com/sdk/docs/install#deb
 
 ```sh
