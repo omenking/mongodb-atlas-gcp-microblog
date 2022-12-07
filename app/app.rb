@@ -7,7 +7,7 @@ require_relative "services/user_activities"
 require_relative "services/search_activities"
 require_relative "services/create_activity"
 require 'rack/contrib'
-#require "sinatra/cors"
+require "sinatra/cors"
 
 use Rack::JSONBodyParser
 

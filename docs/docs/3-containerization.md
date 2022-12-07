@@ -83,15 +83,25 @@ We'll create the follwoing file in the root of our projects `docker-compose.yml`
 version: "3.8"
 services:
   app:
+    environment:
+      FRONTEND_URL: "https://3000-omenking-mongodbatlasgc-at0turkspl0.ws-us77.gitpod.io"
+      BACKEND_URL: "https://4567-omenking-mongodbatlasgc-at0turkspl0.ws-us77.gitpod.io"
     build: ./app
     ports:
       - "4567:4567"
     volumes:
       - ./app:/app
   frontend:
+    environment:
+      REACT_APP_BACKEND_URL: "https://4567-omenking-mongodbatlasgc-at0turkspl0.ws-us77.gitpod.io"
     build: ./frontend
     ports:
       - "3000:3000"
     volumes:
       - ./frontend:/frontend
 ```
+
+## Considerations
+
+- We had to remove the ENV Var set in the npm start
+- We had to do npm install before we did a build of the frontend file
