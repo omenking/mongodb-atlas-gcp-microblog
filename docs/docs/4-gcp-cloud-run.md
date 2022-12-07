@@ -71,19 +71,21 @@ gcloud auth configure-docker us-east1-docker.pkg.dev
 
 ### Tag Containers
 
+> Pushes should be of the form docker push HOST-NAME/PROJECT-ID/REPOSITORY/IMAGE
+
 ```
 docker images
 ```
 
 ```
 
-docker tag mongodb-atlas-gcp-microblog-app us-east1-docker.pkg.dev/cruddur/backend-sinatra:latest
-docker tag mongodb-atlas-gcp-microblog-frontend us-east1-docker.pkg.dev/cruddur/frontend-react:latest
+docker tag cruddur-app us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-sinatra:latest
+docker tag cruddur-frontend us-east1-docker.pkg.dev/cruddur/frontend-react/frontend-react:latest
 ```
 
 ## Push containers 
 
 ```
-docker push us-east1-docker.pkg.dev/cruddur/backend-sinatra:latest
-docker push us-east1-docker.pkg.dev/cruddur/frontend-react:latest
+docker push us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-sinatra:latest
+docker push us-east1-docker.pkg.dev/cruddur/frontend-react/frontend-react:latest
 ```

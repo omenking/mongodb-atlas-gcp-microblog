@@ -101,6 +101,16 @@ services:
       - ./frontend:/frontend
 ```
 
+```
+docker compose -p cruddur build
+```
+
+```
+docker compose -p up build
+```
+
+> We are using the -p flag so that the prepended name is not the folder name but instead an easier name to work with
+
 ## Considerations
 
 - We had to remove the ENV Var set in the npm start
