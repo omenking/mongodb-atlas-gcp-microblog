@@ -72,7 +72,30 @@ gcloud auth configure-docker us-east1-docker.pkg.dev
 ## Update containers to listen on env var port
 
 GCP Cloud Run expects the app to listen on port 8080.
-You aren't suppose to hardcode the value but use an env var called PORT instead
+You aren't suppose to hardcode the value but use an env var called PORT insteado
+
+Update our dockerfile for `app/Dockerfile` to use env var PORT:
+
+```dockerfile
+FROM ruby:3.1.0
+
+# sets the default port (it can still be overriden)
+ENV PORT=4567
+
+ADD . /app
+WORKDIR /app
+RUN bundle install
+EXPOSE ${PORT}
+CMD [ "sh", "-c", "bundle exec rackup --host 0.0.0.0 -p $PORT"]
+```
+
+https://stackoverflow.com/questions/40873165/use-docker-run-command-to-pass-arguments-to-cmd-in-dockerfile
+
+You should probably test that its working correctly:
+```
+docker build -t cruddur-sinatra-backend ./app
+docker run -e PORT=8080 -p:4567:8080 -it cruddur-sinatra-backend
+```
 
 ### Tag Containers
 
@@ -83,7 +106,6 @@ docker images
 ```
 
 ```
-
 docker tag cruddur-app us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-sinatra:latest
 docker tag cruddur-frontend us-east1-docker.pkg.dev/cruddur/frontend-react/frontend-react:latest
 ```

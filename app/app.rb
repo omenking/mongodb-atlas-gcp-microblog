@@ -9,6 +9,7 @@ require_relative "services/create_activity"
 require 'rack/contrib'
 require "sinatra/cors"
 
+# nada 
 use Rack::JSONBodyParser
 
 backend  = ENV['BACKEND_URL']
