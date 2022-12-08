@@ -1,3 +1,5 @@
+$stdout.sync = true
+
 require 'sinatra'
 require "sinatra/namespace"
 require 'json'
@@ -16,13 +18,23 @@ use Rack::JSONBodyParser
 backend  = ENV['BACKEND_URL']
 frontend = ENV['FRONTEND_URL']
 
+
+### BAYKO
+set :logger, Logger.new(STDOUT) 
+puts "CORS SET----"
+puts backend
+puts frontend
+puts "CORS SET===="
+STDOUT.write "CORS SET----"
+STDOUT.write backend
+STDOUT.write frontend
+STDOUT.write "CORS SET===="
+
 set :allow_origin , [backend,frontend].join(' ')
 set :allow_methods, "GET,HEAD,POST,PUT,PATCH,DELETE"
 set :allow_headers, "content-type,if-modified-since"
 set :expose_headers, "location,link"
 
-### BAYKO
-set :logger, Logger.new(STDOUT) 
     
 configure :development do
   enable :reloader
