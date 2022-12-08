@@ -22,7 +22,7 @@ I am using Route53 so I updated the name servers
 ### Verify
 
 It will take a bit of time for your domain provider to update the nameservers.
-For route53 it took about 15 mins.
+For route53 it took about 5 mins.
 
 Then the nameserver changes need to propate around the internet
 
@@ -37,9 +37,7 @@ You can also use the following online tool to check based on what different netw
 https://dnschecker.org/ns-lookup.php
 
 
-While you are updating the nameserver you might get:
+If you get an error like this it could mean you set the DNS records incorrectly
 ```
 Host cruddur.com not found: 2(SERVFAIL)
 ```
-
-Just give it time to propagte
