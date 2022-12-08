@@ -10,7 +10,7 @@ require 'rack/contrib'
 require "sinatra/cors"
 require_relative "config/initializers/mongo"
 
-# nada 
+# refresh
 use Rack::JSONBodyParser
 
 backend  = ENV['BACKEND_URL']
