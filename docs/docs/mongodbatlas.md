@@ -2,7 +2,7 @@
 
 - You need to have populated data first before indexing
 - Turning on Indexing for MongoDB Atlas
-  - Click into Cluster -> Go to Search
+  - Click into Cluster -> Go to Search - Create Index -> Click through dont think lol
 
   ```
 bundle exec ruby config/seed.rb
