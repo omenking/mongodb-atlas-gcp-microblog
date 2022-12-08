@@ -41,3 +41,28 @@ If you get an error like this it could mean you set the DNS records incorrectly
 ```
 Host cruddur.com not found: 2(SERVFAIL)
 ```
+
+## Load Balancer
+
+> Update Terraform with GCP LB Module
+
+## Connect domain to Load Balancer
+
+Create a new A record with the Load Balancer's domain.
+If you check the load balancers frontends both the addresses will be the same. That is hte load balancers IP Addres
+
+We'll use ping to confirm the domain is returning the IP address we set
+
+```
+ping cruddur.com
+```
+
+So I get back this
+
+```
+PING cruddur.com (34.117.127.252) 56(84) bytes of data.
+64 bytes from 252.127.117.34.bc.googleusercontent.com (34.117.127.252): icmp_seq=1 ttl=113 time=1.00 ms
+64 bytes from 252.127.117.34.bc.googleusercontent.com (34.117.127.252): icmp_seq=2 ttl=113 time=0.310 ms
+64 bytes from 252.127.117.34.bc.googleusercontent.com (34.117.127.252): icmp_seq=3 ttl=113 time=0.374 ms
+```
+
