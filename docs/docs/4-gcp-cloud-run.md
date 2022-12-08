@@ -1,8 +1,9 @@
 ## Install GCloud in Gitpod
 
 https://cloud.google.com/blog/topics/developers-practitioners/serverless-load-balancing-terraform-hard-way
-
+https://cloud.google.com/blog/topics/developers-practitioners/new-terraform-module-serverless-load-balancing
 https://cloud.google.com/sdk/docs/install#deb
+https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_region_network_endpoint_group
 
 ```sh
 sudo apt-get install apt-transport-https ca-certificates gnupg -y
