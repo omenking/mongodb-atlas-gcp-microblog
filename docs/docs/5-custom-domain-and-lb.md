@@ -66,3 +66,15 @@ PING cruddur.com (34.117.127.252) 56(84) bytes of data.
 64 bytes from 252.127.117.34.bc.googleusercontent.com (34.117.127.252): icmp_seq=3 ttl=113 time=0.374 ms
 ```
 
+## Confirm SSL is working
+
+In the load balancer tab if you go into `cruddur-lb-url-map`
+
+You can see here on Frontend the certificate for `cruddur-lb-cert`
+
+Lets confirm its out of provisioning
+
+This can take 30 to 60 mins on average to leave PROVISIONG
+
+https://cloud.google.com/load-balancing/docs/ssl-certificates/troubleshooting?&_ga=2.176251298.-668636557.1639844807#certificate-managed-status
+
