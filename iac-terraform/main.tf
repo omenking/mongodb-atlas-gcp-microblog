@@ -97,11 +97,11 @@ resource "google_cloud_run_service_iam_policy" "noauth_frontend_react" {
   project     = google_cloud_run_service.service_frontend_react.project
   service     = google_cloud_run_service.service_frontend_react.name
 
-  policy_data = data.google_iam_policy.noauth_frontend.policy_data
+  policy_data = data.google_iam_policy.noauth_frontend_react.policy_data
 }
 
 resource "google_compute_region_network_endpoint_group" "neg_backend_sinatra" {
-  name                  = "neg_backend_sintra"
+  name                  = "neg-backend-sintra"
   network_endpoint_type = "SERVERLESS"
   region                = "us-east1"
   cloud_run {
@@ -110,7 +110,7 @@ resource "google_compute_region_network_endpoint_group" "neg_backend_sinatra" {
 }
 
 resource "google_compute_region_network_endpoint_group" "neg_frontend_react" {
-  name                  = "neg_frontend_react"
+  name                  = "neg-frontend-react"
   network_endpoint_type = "SERVERLESS"
   region                = "us-east1"
   cloud_run {

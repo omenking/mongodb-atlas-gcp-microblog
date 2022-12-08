@@ -101,6 +101,12 @@ https://cloud.google.com/network-intelligence-center/docs/connectivity-tests/con
 - port: enter 443
 
 
+
+When we deploy our infrastructure:
+```
+ TF_VAR_mongodb_atlas_url=$MONGO_ATLAS_URL terraform apply
+ ```
+
 ## Example of Multi Routes
 
 https://github.com/terraform-google-modules/terraform-google-lb-http/blob/v6.3.0/examples/multi-backend-multi-mig-bucket-https-lb/main.tf
