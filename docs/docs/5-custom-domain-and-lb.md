@@ -99,3 +99,8 @@ https://cloud.google.com/network-intelligence-center/docs/connectivity-tests/con
 - source ip : enter your own ip
 - destination ip: enter the load balancer frontend ip
 - port: enter 443
+
+
+## Example of Multi Routes
+
+https://github.com/terraform-google-modules/terraform-google-lb-http/blob/v6.3.0/examples/multi-backend-multi-mig-bucket-https-lb/main.tf

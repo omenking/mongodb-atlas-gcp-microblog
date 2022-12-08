@@ -3,10 +3,10 @@ provider "google" {
   region  = "us-east1"
 }
 
-resource "google_cloud_run_service" "service_api" {
+resource "google_cloud_run_service" "service_backend_sinatra" {
   provider = google
 
-  name     = "backend"
+  name     = "backend_sinatra"
   location = "us-east1"
 
 
@@ -40,10 +40,10 @@ resource "google_cloud_run_service" "service_api" {
   }
 }
 
-resource "google_cloud_run_service" "service_frontend" {
+resource "google_cloud_run_service" "service_frontend_react" {
   provider = google
 
-  name     = "frontend"
+  name     = "frontend_react"
   location = "us-east1"
 
 
@@ -66,7 +66,7 @@ resource "google_cloud_run_service" "service_frontend" {
 }
 
 
-data "google_iam_policy" "noauth_api" {
+data "google_iam_policy" "noauth_backend_sinatra" {
   binding {
     role = "roles/run.invoker"
     members = [
@@ -75,7 +75,7 @@ data "google_iam_policy" "noauth_api" {
   }
 }
 
-data "google_iam_policy" "noauth_frontend" {
+data "google_iam_policy" "noauth_frontend_react" {
   binding {
     role = "roles/run.invoker"
     members = [
@@ -84,58 +84,59 @@ data "google_iam_policy" "noauth_frontend" {
   }
 }
 
-resource "google_cloud_run_service_iam_policy" "noauth_api" {
-  location    = google_cloud_run_service.service_api.location
-  project     = google_cloud_run_service.service_api.project
-  service     = google_cloud_run_service.service_api.name
+resource "google_cloud_run_service_iam_policy" "noauth_backend_sinatra" {
+  location    = google_cloud_run_service.service_backend_sinatra.location
+  project     = google_cloud_run_service.service_backend_sinatra.project
+  service     = google_cloud_run_service.service_backend_sinatra.name
 
-  policy_data = data.google_iam_policy.noauth_api.policy_data
+  policy_data = data.google_iam_policy.noauth_backend_sinatra.policy_data
 }
 
-resource "google_cloud_run_service_iam_policy" "noauth_frontend" {
-  location    = google_cloud_run_service.service_frontend.location
-  project     = google_cloud_run_service.service_frontend.project
-  service     = google_cloud_run_service.service_frontend.name
+resource "google_cloud_run_service_iam_policy" "noauth_frontend_react" {
+  location    = google_cloud_run_service.service_frontend_react.location
+  project     = google_cloud_run_service.service_frontend_react.project
+  service     = google_cloud_run_service.service_frontend_react.name
 
   policy_data = data.google_iam_policy.noauth_frontend.policy_data
 }
 
-resource "google_compute_region_network_endpoint_group" "neg_api" {
-  name                  = "neg-api"
+resource "google_compute_region_network_endpoint_group" "neg_backend_sinatra" {
+  name                  = "neg_backend_sintra"
   network_endpoint_type = "SERVERLESS"
   region                = "us-east1"
   cloud_run {
-    service = google_cloud_run_service.service_api.name
+    service = google_cloud_run_service.service_backend_sinatra.name
   }
 }
 
-resource "google_compute_region_network_endpoint_group" "neg_frontend" {
-  name                  = "neg-frontend"
+resource "google_compute_region_network_endpoint_group" "neg_frontend_react" {
+  name                  = "neg_frontend_react"
   network_endpoint_type = "SERVERLESS"
   region                = "us-east1"
   cloud_run {
-    service = google_cloud_run_service.service_frontend.name
+    service = google_cloud_run_service.service_frontend_react.name
   }
 }
 
 module "lb-http" {
-  source            = "GoogleCloudPlatform/lb-http/google//modules/serverless_negs"
-  version           = "~> 4.5"
+  source   = "GoogleCloudPlatform/lb-http/google//modules/serverless_negs"
+  version = "~> 5.1"
 
   project           = "cruddur"
   name              = "cruddur-lb"
 
-  url_map  = google_compute_url_map.lb-map.self_link
+  url_map  = google_compute_url_map.urlmap.self_link
+  create_url_map  = false
 
   managed_ssl_certificate_domains = ["cruddur.com"]
   ssl                             = true
   https_redirect                  = true
 
   backends = {
-    api = {
+    backend_sinatra = {
       groups = [
         {
-          group = google_compute_region_network_endpoint_group.neg_api.id
+          group = google_compute_region_network_endpoint_group.neg_backend_sinatra.id
         }
       ]
 
@@ -157,10 +158,10 @@ module "lb-http" {
       security_policy         = null
 
     }
-    frontend = {
+    frontend_react = {
       groups = [
         {
-          group = google_compute_region_network_endpoint_group.neg_frontend.id
+          group = google_compute_region_network_endpoint_group.neg_frontend_react.id
         }
       ]
 
@@ -184,10 +185,10 @@ module "lb-http" {
   }
 }
 
-resource "google_compute_url_map" "lb-map" {
+resource "google_compute_url_map" "urlmap" {
   #matching the name of the lb
-  name = "cruddur-lb"
-  default_service = module.lb-http.backend_services["frontend"].self_link
+  name = "cruddur-urlmap"
+  default_service = module.lb-http.backend_services["frontend_react"].self_link
 
   host_rule {
     hosts        = ["*"]
@@ -196,14 +197,14 @@ resource "google_compute_url_map" "lb-map" {
 
   path_matcher {
     name            = "allpaths"
-    default_service = module.lb-http.backend_services["frontend"].self_link
+    default_service = module.lb-http.backend_services["frontend_react"].self_link
 
     path_rule {
       paths = [
         "/api",
         "/api/*"
       ]
-      service = module.lb-http.backend_services["api"].self_link
+      service = module.lb-http.backend_services["backend_sinatra"].self_link
     }
   }
 }
