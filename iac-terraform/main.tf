@@ -9,10 +9,15 @@ resource "google_cloud_run_service" "my_service" {
   name     = "backend"
   location = "us-east1"
 
+
   template {
     spec {
       containers {
         image = "us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-sinatra:latest"
+        env {
+          name = "BACKEND_URL"
+          value = "cruddur.com"
+        }
       }
     }
   }

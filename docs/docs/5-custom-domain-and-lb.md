@@ -78,3 +78,24 @@ This can take 30 to 60 mins on average to leave PROVISIONG
 
 https://cloud.google.com/load-balancing/docs/ssl-certificates/troubleshooting?&_ga=2.176251298.-668636557.1639844807#certificate-managed-status
 
+> If your domain status is FAILED_NOT_VISIBLE, it might be because propagation isn't complete.
+
+Check the google network if its propogated:
+
+https://dnschecker.org/ns-lookup.php
+
+## Connectivity Tests
+
+Connectvity Test is a service by GCP to help us trace through if traffic is making it to our backend
+and if there is an issue along the way.
+
+Serach for it in GCP and turn on the API.
+
+Create a new connectivity Test
+
+https://cloud.google.com/network-intelligence-center/docs/connectivity-tests/concepts/test-load-balancers
+
+
+- source ip : enter your own ip
+- destination ip: enter the load balancer frontend ip
+- port: enter 443
