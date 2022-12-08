@@ -1,6 +1,7 @@
 import './UserFeedPage.css';
 import ActivityFeed from '../components/ActivityFeed';
 import { useParams } from 'react-router-dom';
+import React from "react";
 
 export default function UserFeedPage() {
   const [activities, setActivities] = React.useState([]);

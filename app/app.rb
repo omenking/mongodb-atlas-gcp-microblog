@@ -32,10 +32,10 @@ puts "CORS SET----!!"
 puts backend
 puts frontend
 
-set :allow_origin , "*"#[backend,frontend].join(' ')
+set :allow_origin , [backend,frontend].join(' ')
 set :allow_methods, "OPTIONS,GET,HEAD,POST,PUT,PATCH,DELETE"
-#set :allow_headers, "content-type,if-modified-since"
-#set :expose_headers, "location,link"
+set :allow_headers, "content-type,if-modified-since"
+set :expose_headers, "location,link"
 
     
 configure :development do
