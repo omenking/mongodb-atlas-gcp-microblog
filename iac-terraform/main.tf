@@ -16,11 +16,11 @@ resource "google_cloud_run_service" "service_backend_sinatra" {
         image = "us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-sinatra:latest"
         env {
           name = "BACKEND_URL"
-          value = "cruddur.com"
+          value = "https://cruddur.com"
         }
         env {
           name = "FRONTEND_URL"
-          value = "cruddur.com"
+          value = "https://cruddur.com"
         }
         env {
           name = "MONGO_ATLAS_URL"

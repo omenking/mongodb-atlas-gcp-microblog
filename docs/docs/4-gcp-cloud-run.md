@@ -109,6 +109,10 @@ docker images
 ```
 
 ```
+docker compose -p cruddur build
+```
+
+```
 docker tag cruddur-app us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-sinatra:latest
 docker tag cruddur-frontend us-east1-docker.pkg.dev/cruddur/frontend-react/frontend-react:latest
 ```
