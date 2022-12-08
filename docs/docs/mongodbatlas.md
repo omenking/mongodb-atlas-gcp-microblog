@@ -10,9 +10,12 @@ bundle exec ruby config/seed.rb
 
 export MONGO_ATLAS_URL=
 export MONGO_DATABASE=
+export TF_VAR_mongo_atlas_url=""
 
 gp env MONGO_ATLAS_URL=
 gp env MONGO_DATABASE=
+gp env TF_VAR_mongo_atlas_url=
+
 
 ## DB and Network Access
 

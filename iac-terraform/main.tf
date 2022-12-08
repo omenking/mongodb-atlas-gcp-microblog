@@ -18,6 +18,18 @@ resource "google_cloud_run_service" "service_api" {
           name = "BACKEND_URL"
           value = "cruddur.com"
         }
+        env {
+          name = "FRONTEND_URL"
+          value = "cruddur.com"
+        }
+        env {
+          name = "MONGO_ATLAS_URL"
+          value = var.mongo_atlas_url
+        }
+        env {
+          name = "MONGO_DATABASE"
+          value = "cruddur"
+        }
       }
     }
   }
@@ -145,7 +157,7 @@ module "lb-http" {
       security_policy         = null
 
     }
-    default = {
+    frontend = {
       groups = [
         {
           group = google_compute_region_network_endpoint_group.neg_frontend.id
@@ -175,7 +187,7 @@ module "lb-http" {
 resource "google_compute_url_map" "lb-map" {
   #matching the name of the lb
   name = "cruddur-lb"
-  default_service = module.lb-http.backend_services["default"].self_link
+  default_service = module.lb-http.backend_services["frontend"].self_link
 
   host_rule {
     hosts        = ["*"]
@@ -184,7 +196,7 @@ resource "google_compute_url_map" "lb-map" {
 
   path_matcher {
     name            = "allpaths"
-    default_service = module.lb-http.backend_services["default"].self_link
+    default_service = module.lb-http.backend_services["frontend"].self_link
 
     path_rule {
       paths = [
