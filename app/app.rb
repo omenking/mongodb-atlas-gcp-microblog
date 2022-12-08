@@ -18,6 +18,9 @@ use Rack::JSONBodyParser
 backend  = ENV['BACKEND_URL']
 frontend = ENV['FRONTEND_URL']
 
+puts ENV['MONGO_ATLAS_URL']
+puts ENV['MONGO_DATABASE']
+
 backend = "https://4567-omenking-mongodbatlasgc-97v3x8ruxof.ws-us78.gitpod.io"
 frontend = "https://3000-omenking-mongodbatlasgc-97v3x8ruxof.ws-us78.gitpod.io"
 
