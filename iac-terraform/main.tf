@@ -6,7 +6,7 @@ provider "google" {
 resource "google_cloud_run_service" "service_backend_sinatra" {
   provider = google
 
-  name     = "backend_sinatra"
+  name     = "backend-sinatra"
   location = "us-east1"
 
 
@@ -43,7 +43,7 @@ resource "google_cloud_run_service" "service_backend_sinatra" {
 resource "google_cloud_run_service" "service_frontend_react" {
   provider = google
 
-  name     = "frontend_react"
+  name     = "frontend-react"
   location = "us-east1"
 
 
