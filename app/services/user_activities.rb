@@ -7,11 +7,11 @@ class UserActivities
     if user_handle.nil? || user_handle.strip == ''
       model.errors = ['blank_user_handle']
     else
-      results = [{
-        handle:  'Andrew Brown',
-        message: 'Cloud is fun!',
-        created_at: Time.now.iso8601
-      }]
+      collection = Mongo::Database.db[:activities]
+      documents = collection.find(handle: user_handle).sort(created_at: -1).limit(100)
+      results = documents.map do |document|
+        document.slice(:handle,:message,:created_at)
+      end
       model.data = results
     end    
     return model

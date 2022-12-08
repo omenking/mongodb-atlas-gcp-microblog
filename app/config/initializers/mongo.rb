@@ -12,6 +12,10 @@ module Mongo
         end
       end
 
+      def query_collection collection
+        puts collection.find( { name: 'Sally' } ).first
+      end
+
       def insert_document collection, document
         doc = document.to_hash
         result = collection.insert_one(doc)
