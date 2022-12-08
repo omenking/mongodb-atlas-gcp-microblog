@@ -28,6 +28,23 @@ resource "google_cloud_run_service" "my_service" {
   }
 }
 
+data "google_iam_policy" "noauth" {
+  binding {
+    role = "roles/run.invoker"
+    members = [
+      "allUsers",
+    ]
+  }
+}
+
+resource "google_cloud_run_service_iam_policy" "noauth" {
+  location    = google_cloud_run_service.my_service.location
+  project     = google_cloud_run_service.my_service.project
+  service     = google_cloud_run_service.my_service.name
+
+  policy_data = data.google_iam_policy.noauth.policy_data
+}
+
 resource "google_compute_region_network_endpoint_group" "cloudrun_neg" {
   name                  = "cloudrun-neg"
   network_endpoint_type = "SERVERLESS"
