@@ -133,7 +133,7 @@ module "lb-http" {
   https_redirect                  = true
 
   backends = {
-    backend_sinatra = {
+    backend-sinatra = {
       groups = [
         {
           group = google_compute_region_network_endpoint_group.neg_backend_sinatra.id
@@ -158,7 +158,7 @@ module "lb-http" {
       security_policy         = null
 
     }
-    frontend_react = {
+    frontend-react = {
       groups = [
         {
           group = google_compute_region_network_endpoint_group.neg_frontend_react.id
@@ -188,7 +188,7 @@ module "lb-http" {
 resource "google_compute_url_map" "urlmap" {
   #matching the name of the lb
   name = "cruddur-urlmap"
-  default_service = module.lb-http.backend_services["frontend_react"].self_link
+  default_service = module.lb-http.backend_services["frontend-react"].self_link
 
   host_rule {
     hosts        = ["*"]
@@ -197,14 +197,14 @@ resource "google_compute_url_map" "urlmap" {
 
   path_matcher {
     name            = "allpaths"
-    default_service = module.lb-http.backend_services["frontend_react"].self_link
+    default_service = module.lb-http.backend_services["frontend-react"].self_link
 
     path_rule {
       paths = [
         "/api",
         "/api/*"
       ]
-      service = module.lb-http.backend_services["backend_sinatra"].self_link
+      service = module.lb-http.backend_services["backend-sinatra"].self_link
     }
   }
 }
