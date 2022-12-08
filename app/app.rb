@@ -18,22 +18,21 @@ use Rack::JSONBodyParser
 backend  = ENV['BACKEND_URL']
 frontend = ENV['FRONTEND_URL']
 
+backend = "https://4567-omenking-mongodbatlasgc-97v3x8ruxof.ws-us78.gitpod.io"
+frontend = "https://3000-omenking-mongodbatlasgc-97v3x8ruxof.ws-us78.gitpod.io"
+
 
 ### BAYKO
 set :logger, Logger.new(STDOUT) 
-puts "CORS SET----"
+
+puts "CORS SET----!!"
 puts backend
 puts frontend
-puts "CORS SET===="
-STDOUT.write "CORS SET----"
-STDOUT.write backend
-STDOUT.write frontend
-STDOUT.write "CORS SET===="
 
-set :allow_origin , [backend,frontend].join(' ')
-set :allow_methods, "GET,HEAD,POST,PUT,PATCH,DELETE"
-set :allow_headers, "content-type,if-modified-since"
-set :expose_headers, "location,link"
+set :allow_origin , "*"#[backend,frontend].join(' ')
+set :allow_methods, "OPTIONS,GET,HEAD,POST,PUT,PATCH,DELETE"
+#set :allow_headers, "content-type,if-modified-since"
+#set :expose_headers, "location,link"
 
     
 configure :development do
