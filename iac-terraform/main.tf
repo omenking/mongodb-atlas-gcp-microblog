@@ -31,7 +31,7 @@ resource "google_cloud_run_service" "service_api" {
 resource "google_cloud_run_service" "service_frontend" {
   provider = google
 
-  name     = "backend"
+  name     = "frontend"
   location = "us-east1"
 
 
