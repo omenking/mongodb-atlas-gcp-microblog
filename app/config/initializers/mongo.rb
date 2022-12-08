@@ -2,8 +2,8 @@ require 'mongo'
 
 module Mongo
   class Database
-    MONGO_ATLAS_URL = 'mongodb+srv://<user>:<pass>@<cluster>.<id>.mongodb.net/?retryWrites=true&w=majority'  
-    MONGO_DATABASE = '<database>' # database on the atlas cluster to work with
+    MONGO_ATLAS_URL = ENV['MONGO_ATLAS_URL'] # 'mongodb+srv://<user>:<pass>@<cluster>.<id>.mongodb.net/?retryWrites=true&w=majority'  
+    MONGO_DATABASE = ENV['MONGO_DATABASE'] # '<database>' # database on the atlas cluster to work with
     TIMEOUT_SECONDS = 5
     class << self
       def db
