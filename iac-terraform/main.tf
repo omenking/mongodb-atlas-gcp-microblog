@@ -77,7 +77,7 @@ resource "google_cloud_run_service_iam_policy" "noauth_api" {
   project     = google_cloud_run_service.service_api.project
   service     = google_cloud_run_service.service_api.name
 
-  policy_data = data.google_iam_policy.noauth.policy_data
+  policy_data = data.google_iam_policy.noauth_api.policy_data
 }
 
 resource "google_cloud_run_service_iam_policy" "noauth_frontend" {
@@ -85,7 +85,7 @@ resource "google_cloud_run_service_iam_policy" "noauth_frontend" {
   project     = google_cloud_run_service.service_frontend.project
   service     = google_cloud_run_service.service_frontend.name
 
-  policy_data = data.google_iam_policy.noauth.policy_data
+  policy_data = data.google_iam_policy.noauth_frontend.policy_data
 }
 
 resource "google_compute_region_network_endpoint_group" "neg_api" {
@@ -191,7 +191,7 @@ resource "google_compute_url_map" "lb-map" {
         "/api",
         "/api/*"
       ]
-      service = module.gce-lb-https.backend_services["api"].self_link
+      service = module.lb-http.backend_services["api"].self_link
     }
   }
 }
