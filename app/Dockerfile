@@ -1,10 +1,6 @@
-FROM ruby:3.1.0
-
-# sets the default port (it can still be overriden)
-ENV PORT=4567
-
-ADD . /app
-WORKDIR /app
-RUN bundle install
-EXPOSE ${PORT}
-CMD [ "sh", "-c", "bundle exec rackup --host 0.0.0.0 -p $PORT"]
+FROM adoptopenjdk/openjdk11:alpine-jre
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
