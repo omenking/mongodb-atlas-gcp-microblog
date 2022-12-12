@@ -4,8 +4,6 @@ services:
     environment:
       FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
-      MONGO_ATLAS_URL: "${MONGO_ATLAS_URL}"
-      MONGO_DATABASE: "${MONGO_DATABASE}"
     build: ./app
     ports:
       - "4567:4567"

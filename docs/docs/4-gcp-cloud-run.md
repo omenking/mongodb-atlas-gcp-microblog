@@ -53,10 +53,10 @@ We first need to push these images to the GCP artifact registry.
 ### Create Repos
 
 ```sh
-gcloud artifacts repositories create backend-sinatra \
+gcloud artifacts repositories create backend-flask \
 --repository-format=docker \
 --location=$REGION \
---description="Backend Sinatra for Cruddur Microblogger"
+--description="Backend flask for Cruddur Microblogger"
 ```
 
 ```sh
@@ -96,8 +96,8 @@ https://stackoverflow.com/questions/40873165/use-docker-run-command-to-pass-argu
 
 You should probably test that its working correctly:
 ```
-docker build -t cruddur-sinatra-backend ./app
-docker run -e PORT=8080 -p:4567:8080 -it cruddur-sinatra-backend
+docker build -t cruddur-flask-backend ./app
+docker run -e PORT=8080 -p:4567:8080 -it cruddur-flask-backend
 ```
 
 ### Tag Containers
@@ -113,14 +113,14 @@ docker compose -p cruddur build
 ```
 
 ```
-docker tag cruddur-app us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-sinatra:latest
+docker tag cruddur-app us-east1-docker.pkg.dev/cruddur/backend-flask/backend-flask:latest
 docker tag cruddur-frontend us-east1-docker.pkg.dev/cruddur/frontend-react/frontend-react:latest
 ```
 
 ### Push containers 
 
 ```
-docker push us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-sinatra:latest
+docker push us-east1-docker.pkg.dev/cruddur/backend-flask/backend-flask:latest
 docker push us-east1-docker.pkg.dev/cruddur/frontend-react/frontend-react:latest
 ```
 
@@ -165,7 +165,7 @@ resource "google_cloud_run_service" "my_service" {
   template {
     spec {
       containers {
-        image = "us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-sinatra:latest"
+        image = "us-east1-docker.pkg.dev/cruddur/backend-flask/backend-flask:latest"
       }
     }
   }

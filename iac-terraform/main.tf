@@ -3,17 +3,17 @@ provider "google" {
   region  = "us-east1"
 }
 
-resource "google_cloud_run_service" "service_backend_sinatra" {
+resource "google_cloud_run_service" "service_backend_flask" {
   provider = google
 
-  name     = "backend-sinatra"
+  name     = "backend-flask"
   location = "us-east1"
 
 
   template {
     spec {
       containers {
-        image = "us-east1-docker.pkg.dev/cruddur/backend-sinatra/backend-sinatra:latest"
+        image = "us-east1-docker.pkg.dev/cruddur/backend-flask/backend-flask:latest"
         env {
           name = "BACKEND_URL"
           value = "https://cruddur.com"
@@ -66,7 +66,7 @@ resource "google_cloud_run_service" "service_frontend_react" {
 }
 
 
-data "google_iam_policy" "noauth_backend_sinatra" {
+data "google_iam_policy" "noauth_backend_flask" {
   binding {
     role = "roles/run.invoker"
     members = [
@@ -84,12 +84,12 @@ data "google_iam_policy" "noauth_frontend_react" {
   }
 }
 
-resource "google_cloud_run_service_iam_policy" "noauth_backend_sinatra" {
-  location    = google_cloud_run_service.service_backend_sinatra.location
-  project     = google_cloud_run_service.service_backend_sinatra.project
-  service     = google_cloud_run_service.service_backend_sinatra.name
+resource "google_cloud_run_service_iam_policy" "noauth_backend_flask" {
+  location    = google_cloud_run_service.service_backend_flask.location
+  project     = google_cloud_run_service.service_backend_flask.project
+  service     = google_cloud_run_service.service_backend_flask.name
 
-  policy_data = data.google_iam_policy.noauth_backend_sinatra.policy_data
+  policy_data = data.google_iam_policy.noauth_backend_flask.policy_data
 }
 
 resource "google_cloud_run_service_iam_policy" "noauth_frontend_react" {
@@ -100,12 +100,12 @@ resource "google_cloud_run_service_iam_policy" "noauth_frontend_react" {
   policy_data = data.google_iam_policy.noauth_frontend_react.policy_data
 }
 
-resource "google_compute_region_network_endpoint_group" "neg_backend_sinatra" {
+resource "google_compute_region_network_endpoint_group" "neg_backend_flask" {
   name                  = "neg-backend-sintra"
   network_endpoint_type = "SERVERLESS"
   region                = "us-east1"
   cloud_run {
-    service = google_cloud_run_service.service_backend_sinatra.name
+    service = google_cloud_run_service.service_backend_flask.name
   }
 }
 
@@ -133,10 +133,10 @@ module "lb-http" {
   https_redirect                  = true
 
   backends = {
-    backend-sinatra = {
+    backend-flask = {
       groups = [
         {
-          group = google_compute_region_network_endpoint_group.neg_backend_sinatra.id
+          group = google_compute_region_network_endpoint_group.neg_backend_flask.id
         }
       ]
 
@@ -204,7 +204,7 @@ resource "google_compute_url_map" "urlmap" {
         "/api",
         "/api/*"
       ]
-      service = module.lb-http.backend_services["backend-sinatra"].self_link
+      service = module.lb-http.backend_services["backend-flask"].self_link
     }
   }
 }

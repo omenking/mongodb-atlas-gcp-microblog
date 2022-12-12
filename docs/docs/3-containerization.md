@@ -1,4 +1,4 @@
-## Contaizer  Sinatra App (Backend)
+## Contaizer  flask App (Backend)
 
 
 ### Create Containerfile
@@ -6,25 +6,25 @@
 Create in `app/Dockerfile`
 
 ```dockerfile
-FROM ruby:3.1.0
-
-ADD . /app
+FROM python:3.10-slim-buster
 WORKDIR /app
-RUN bundle install
-EXPOSE 4567
-CMD ["bundle", "exec", "rackup", "--host", "0.0.0.0", "-p", "4567"]
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+COPY . .
+EXPOSE ${PORT}
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
 ```
 
 ### Build Container
 
 ```sh
-docker build -t  backend-sinatra ./app
+docker build -t  backend-flask ./app
  ```
 
  ## Run Container
 
  ```
- docker run -p 4567:4567 -it backend-sinatra
+ docker run -p 4567:4567 -it backend-flask
  ```
 
 
@@ -41,7 +41,7 @@ curl -X GET http://localhost:4567/api/activities/home -H "Accept: application/js
  ## If we need to delete the iamge
 
  ```
- docker image rm backend-sinatra --force
+ docker image rm backend-flask --force
  ```
 
 ## Debugging Connection Refused
