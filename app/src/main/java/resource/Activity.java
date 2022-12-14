@@ -1,4 +1,4 @@
-package api;
+package resource;
 
 public class Activity {
   
